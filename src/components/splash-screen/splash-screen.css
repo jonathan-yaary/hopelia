@@ -7,8 +7,6 @@
 
   img {
     width: 50vw;
-    height: auto;
-    animation: spin 2s linear infinite;
   }
 
   h1 {
