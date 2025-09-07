@@ -16,7 +16,7 @@ function App() {
     }, SPLASH_MS);
 
     const mountHome = setTimeout(() => {
-      navigate("/home");
+      navigate("home");
     }, SPLASH_MS + TRANSITION_MS);
 
     return () => {
