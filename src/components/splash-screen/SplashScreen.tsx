@@ -11,7 +11,7 @@ const SplashScreen = () => {
       spacing={5}
     >
       <Fade in={true} timeout={1500}>
-        <img src="/logo.png" alt="Logo"  />
+        <img src="logo.png" alt="Logo"  />
       </Fade>
 
       <Fade in={true} timeout={1500} style={{ transitionDelay: '500ms' }}>
