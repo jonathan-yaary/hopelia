@@ -1,0 +1,19 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  --black: #241f24;
+  --text: #d1a769;
+}
+
+html {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--black);
+}
+
+body {
+  margin: 0;
+}
