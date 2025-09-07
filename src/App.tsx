@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import Slide from "@mui/material/Slide";
 import SplashScreen from "./components/splash-screen/SplashScreen";
-import { useNavigate } from "react-router";
+import Home from "./components/home/Home";
 
-const SPLASH_MS = 2700;
+const SPLASH_MS = 2500;
 const TRANSITION_MS = 500;
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
-  const navigate = useNavigate();
-  
+  const [showHome, setShowHome] = useState(false);
+
   useEffect(() => {
     const unmountSplash = setTimeout(() => {
       setShowSplash(false);
     }, SPLASH_MS);
 
     const mountHome = setTimeout(() => {
-      navigate("home");
-    }, SPLASH_MS + TRANSITION_MS);
+      setShowHome(true);
+    }, SPLASH_MS);
 
     return () => {
       clearTimeout(unmountSplash);
@@ -37,6 +37,7 @@ function App() {
           <SplashScreen />
         </div>
       </Slide>
+      {showHome && <Home />}
     </div>
   );
 }
