@@ -9,13 +9,14 @@
     border: 3px solid var(--text);
     border-radius: 50%;
     position: relative;
-    width: 90vw;
-    height: 90vw;
+    width: 85vw;
+    height: 85vw;
     margin: 0 auto;
 
     img {
       position: absolute;
       top: 37%;
+      border-radius: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 50vw;
@@ -23,11 +24,11 @@
 
     h1.splash-screen-title {
       position: absolute;
-      top: 76%;
+      top: 78%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: var(--text);
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-family: "Rubik Wet Paint", system-ui;
       font-weight: 400;
       margin: 0;
