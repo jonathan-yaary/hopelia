@@ -10,6 +10,7 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showHome, setShowHome] = useState(false);
 
+
   useEffect(() => {
     const unmountSplash = setTimeout(() => {
       setShowSplash(false);

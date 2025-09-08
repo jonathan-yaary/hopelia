@@ -14,93 +14,69 @@ import { cocktails, shots, recipes } from "../../data";
 import "./home.css";
 
 const Home = () => {
-  const [showCocktails, setShowCocktails] = useState(false);
-  const [showShots, setShowShots] = useState(false);
-  const [showRecipes, setShowRecipes] = useState(false);
+  const [activeSection, setActiveSection] = useState<
+    "cocktails" | "shots" | "recipes" | null
+  >(null);
   const [showBackButton, setShowBackButton] = useState(false);
 
   const subPageRef = useRef<HTMLDivElement | null>(null);
 
-  const isSubPageRendered = showCocktails || showShots || showRecipes;
-
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 250;
-      setShowBackButton(scrolled && isSubPageRendered);
+      setShowBackButton(scrolled && activeSection !== null);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isSubPageRendered]);
+  }, [activeSection]);
 
-  function closeAllSections() {
-    if (showCocktails) setShowCocktails(false);
-    if (showShots) setShowShots(false);
-    if (showRecipes) setShowRecipes(false);
-  }
-
-  const handleOpenSection = (openSection: () => void) => {
-    closeAllSections();
-    openSection();
+  const handleOpenSection = (section: typeof activeSection) => {
+    setActiveSection(section);
 
     setTimeout(() => {
       subPageRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    }, 500);
   };
 
   const buttons = [
-    {
-      key: "cocktails",
-      title: "קוקטיילים",
-      onClick: () =>
-        handleOpenSection(() => {
-          setShowCocktails(true);
-        }),
-    },
-    {
-      key: "shots",
-      title: "שוטים מיוחדים",
-      onClick: () =>
-        handleOpenSection(() => {
-          setShowShots(true);
-        }),
-    },
-    {
-      key: "recipes",
-      title: "למקצוענים",
-      onClick: () =>
-        handleOpenSection(() => {
-          setShowRecipes(true);
-        }),
-    },
-  ];
+    { key: "cocktails", title: "קוקטיילים", data: cocktails },
+    { key: "shots", title: "שוטים מיוחדים", data: shots },
+    { key: "recipes", title: "למקצוענים", data: recipes },
+  ] as const;
 
   return (
     <>
-      <Stack className="home" gap="2rem" alignItems="center">
-        <Slide direction="left" in timeout={600}>
-          <img className="bar-picture" src="pic.png" alt="Bar" />
-        </Slide>
+      <Slide direction="left" in timeout={600}>
+        <img className="bar-picture" src="pic.png" alt="Bar" />
+      </Slide>
 
-        <Stack className="button-links" gap="2rem">
-          {buttons.map(({ key, title, onClick }, index) => (
-            <Slide
-              key={key}
-              direction="left"
-              in
-              timeout={500}
-              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
-            >
-              <Button
-                className="button-link"
-                variant="outlined"
-                onClick={onClick}
+      <Stack
+        className="categories"
+        direction="row"
+        justifyContent="space-evenly"
+      >
+        {buttons.map(
+          ({ key }, index) =>
+            key !== "recipes" && (
+              <Slide
+                key={key}
+                direction="left"
+                in
+                timeout={500}
+                style={{ transitionDelay: `${(index + 1) * 150}ms` }}
               >
-                {title}
-              </Button>
-            </Slide>
-          ))}
-        </Stack>
+                <Button
+                  className={
+                    "image-button " + (key === activeSection ? "active" : "")
+                  }
+                  onClick={() => handleOpenSection(key)}
+                >
+                  <img src={key + ".png"} alt="" />
+                </Button>
+              </Slide>
+            )
+        )}
       </Stack>
 
       <Stack className="sub-page" ref={subPageRef}>
@@ -115,9 +91,9 @@ const Home = () => {
           </IconButton>
         </Fade>
 
-        {showCocktails && <Menu items={cocktails} />}
-        {showShots && <Menu items={shots} />}
-        {showRecipes && <Menu items={recipes} />}
+        {activeSection === "cocktails" && <Menu items={cocktails} />}
+        {activeSection === "shots" && <Menu items={shots} />}
+        {activeSection === "recipes" && <Menu items={recipes} />}
       </Stack>
     </>
   );
