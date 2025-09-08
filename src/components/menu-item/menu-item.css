@@ -3,7 +3,6 @@
 
   .title {
     color: var(--text);
-    font-weight: 400;
     font-size: 2rem;
     text-align: center;
     font-family: "Rubik Wet Paint", system-ui;
@@ -14,6 +13,6 @@
     font-size: 1.3rem;
     text-align: center;
     font-family: "Playpen Sans Hebrew", cursive;
-    font-weight: 400;
+    font-weight: 600;
   }
 }
