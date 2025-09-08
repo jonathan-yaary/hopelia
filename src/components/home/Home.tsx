@@ -15,15 +15,21 @@ import "./home.css";
 
 const Home = () => {
   const [activeSection, setActiveSection] = useState<
-    "cocktails" | "shots" | "recipes" | null
-  >(null);
+    "cocktails" | "shots" | "recipes"
+  >("cocktails");
   const [showBackButton, setShowBackButton] = useState(false);
 
   const subPageRef = useRef<HTMLDivElement | null>(null);
 
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY > 250;
+      const scrolled = window.scrollY > 350;
       setShowBackButton(scrolled && activeSection !== null);
     };
 
@@ -33,7 +39,9 @@ const Home = () => {
 
   const handleOpenSection = (section: typeof activeSection) => {
     setActiveSection(section);
-
+    
+    isFirstRender.current = false;
+    
     setTimeout(() => {
       subPageRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 500);
@@ -79,7 +87,7 @@ const Home = () => {
         )}
       </Stack>
 
-      <Stack className="sub-page" ref={subPageRef}>
+      <Stack className="sub-page">
         <Fade in={showBackButton} timeout={500}>
           <IconButton
             className="back-button"
@@ -91,7 +99,9 @@ const Home = () => {
           </IconButton>
         </Fade>
 
-        {activeSection === "cocktails" && <Menu items={cocktails} />}
+        {activeSection === "cocktails" && (
+          <Menu items={cocktails} slide={isFirstRender.current} slideTimeout={300} />
+        )}
         {activeSection === "shots" && <Menu items={shots} />}
         {activeSection === "recipes" && <Menu items={recipes} />}
       </Stack>
