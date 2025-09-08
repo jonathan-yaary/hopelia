@@ -1,6 +1,5 @@
 .home {
-  padding: 2rem;
-  gap: 5rem;
+  gap: 3rem;
 
   .button-link {
     color: var(--text);
@@ -9,12 +8,15 @@
   }
 
   .bar-picture {
-    width: calc(100vw - 4rem);
+    width: 100vw;
   }
 }
 
 .MuiButtonBase-root.back-button {
   position: fixed;
+  top: 1rem;
+  left: 1rem;
+  border: 1px solid var(--text);
   width: min-content;
 
   .MuiSvgIcon-root.back-button-icon {
