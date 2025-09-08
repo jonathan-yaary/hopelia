@@ -1,6 +1,4 @@
 .home {
-  gap: 3rem;
-
   .button-link {
     color: var(--text);
     border-color: var(--text);
@@ -9,6 +7,14 @@
 
   .bar-picture {
     width: 100vw;
+
+    -webkit-mask-image: linear-gradient(to bottom, var(--black) 20%, transparent 100%);
+    mask-image: linear-gradient(to bottom, var(--black) 20%, transparent 100%);
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
   }
 }
 

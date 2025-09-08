@@ -1,11 +1,7 @@
-.cocktails {
-  padding: 3rem 2.5rem;
-}
-
-.cocktail-item {
+.menu-item {
   gap: 1rem;
 
-  .name {
+  .title {
     color: var(--text);
     font-weight: 600;
     font-size: 1.5rem;

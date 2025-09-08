@@ -1,7 +1,23 @@
-import Stack from "@mui/material/Stack";
-import "./cocktails.css";
+export const shots = [
+  {
+    name: "Rainbow",
+    description: ["קוקטייל לימוני מרענן במגוון טעמים", "שאל את הברמן"],
+  },
+  {
+    name: "Taquila Sunrise",
+    description: ["המשקה הקלאסי, עכשיו בגודל המושלם."],
+  },
+  {
+    name: "Irish Frog",
+    description: [
+      "קופצני וחלק,",
+      "יורד בקלות בגרון ומשאיר טעם שאי אפשר לשכוח.",
+      "עם אייריש קרים תוצרת בית.",
+    ],
+  },
+];
 
-const cocktails = [
+export const cocktails = [
   {
     name: "Daquiry",
     description: ["קוקטייל לימוני מרענן במגוון טעמים", "שאל את הברמן"],
@@ -55,31 +71,4 @@ const cocktails = [
   },
 ];
 
-const Cocktails = () => {
-  return (
-    <Stack className="cocktails">
-      <Stack gap="2rem">
-        {cocktails.map(({ name, description }) => (
-          <CocktailItem key={name} name={name} description={description} />
-        ))}
-      </Stack>
-    </Stack>
-  );
-};
-
-const CocktailItem = (props: { name: string; description: string[] }) => {
-  const { name, description } = props;
-
-  return (
-    <Stack className="cocktail-item">
-      <p className="name">{name}</p>
-      <div className="description">
-        {description.map((s) => (
-          <p>{s}</p>
-        ))}
-      </div>
-    </Stack>
-  );
-};
-
-export default Cocktails;
+export const recipes = [];

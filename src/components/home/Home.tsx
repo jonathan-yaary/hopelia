@@ -4,14 +4,12 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { ButtonBase, IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import Fade from "@mui/material/Fade";
 
-import Cocktails from "../cocktails/Cocktails";
-const Shots = () => <div style={{ padding: "2rem" }}>Shots content here</div>;
-const Recipes = () => (
-  <div style={{ padding: "2rem" }}>Recipes content here</div>
-);
+import Menu from "../menu/Menu";
+
+import { cocktails, shots, recipes } from "../../data";
 
 import "./home.css";
 
@@ -79,19 +77,19 @@ const Home = () => {
 
   return (
     <>
-      <Stack className="home" alignItems="center" spacing={5}>
+      <Stack className="home" gap="2rem" alignItems="center">
         <Slide direction="left" in timeout={600}>
           <img className="bar-picture" src="pic.png" alt="Bar" />
         </Slide>
 
-        <Stack gap="2rem">
+        <Stack className="button-links" gap="2rem">
           {buttons.map(({ key, title, onClick }, index) => (
             <Slide
               key={key}
               direction="left"
               in
-              timeout={600}
-              style={{ transitionDelay: `${(index + 1) * 300}ms` }}
+              timeout={500}
+              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
             >
               <Button
                 className="button-link"
@@ -117,9 +115,9 @@ const Home = () => {
           </IconButton>
         </Fade>
 
-        {showCocktails && <Cocktails />}
-        {showShots && <Shots />}
-        {showRecipes && <Recipes />}
+        {showCocktails && <Menu items={cocktails} />}
+        {showShots && <Menu items={shots} />}
+        {showRecipes && <Menu items={recipes} />}
       </Stack>
     </>
   );
