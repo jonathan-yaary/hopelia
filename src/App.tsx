@@ -3,28 +3,54 @@ import Slide from "@mui/material/Slide";
 import SplashScreen from "./components/splash-screen/SplashScreen";
 import Home from "./components/home/Home";
 
-const SPLASH_MS = 2500;
 const TRANSITION_MS = 500;
 
+const imagesToPreload = [
+  "/cocktails.png",
+  "/logo.png",
+  "/pic.png",
+  "/shots.png"
+];
+
 function App() {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const [showHome, setShowHome] = useState(false);
 
+  useEffect(() => {
+    let loadedCount = 0;
+
+    const handleImageLoad = () => {
+      loadedCount++;
+      if (loadedCount === imagesToPreload.length) {
+        setImagesLoaded(true);
+      }
+    };
+
+    imagesToPreload.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = handleImageLoad;
+      img.onerror = handleImageLoad; // count errors too
+    });
+  }, []);
 
   useEffect(() => {
-    const unmountSplash = setTimeout(() => {
-      setShowSplash(false);
-    }, SPLASH_MS);
+    if (!imagesLoaded) return;
 
-    const mountHome = setTimeout(() => {
+    const splashTimeout = setTimeout(() => {
+      setShowSplash(false);
+    }, 500);
+
+    const homeTimeout = setTimeout(() => {
       setShowHome(true);
-    }, SPLASH_MS);
+    }, 500 + TRANSITION_MS);
 
     return () => {
-      clearTimeout(unmountSplash);
-      clearTimeout(mountHome);
+      clearTimeout(splashTimeout);
+      clearTimeout(homeTimeout);
     };
-  }, []);
+  }, [imagesLoaded]);
 
   return (
     <div className="app">
@@ -38,6 +64,7 @@ function App() {
           <SplashScreen />
         </div>
       </Slide>
+
       {showHome && <Home />}
     </div>
   );
