@@ -39,9 +39,9 @@ const Home = () => {
 
   const handleOpenSection = (section: typeof activeSection) => {
     setActiveSection(section);
-    
+
     isFirstRender.current = false;
-    
+
     setTimeout(() => {
       subPageRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 500);
@@ -100,7 +100,11 @@ const Home = () => {
         </Fade>
 
         {activeSection === "cocktails" && (
-          <Menu items={cocktails} slide={isFirstRender.current} slideTimeout={300} />
+          <Menu
+            items={cocktails}
+            slide={isFirstRender.current}
+            slideTimeout={300}
+          />
         )}
         {activeSection === "shots" && <Menu items={shots} />}
         {activeSection === "recipes" && <Menu items={recipes} />}

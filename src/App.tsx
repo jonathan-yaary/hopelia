@@ -4,20 +4,24 @@ import SplashScreen from "./components/splash-screen/SplashScreen";
 import Home from "./components/home/Home";
 
 const TRANSITION_MS = 500;
+const MIN_SPLASH_DURATION = 2000;
 
 const imagesToPreload = [
   "/cocktails.png",
   "/logo.png",
   "/pic.png",
-  "/shots.png"
+  "/shots.png",
 ];
 
 function App() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [splashStartTime, setSplashStartTime] = useState(Date.now());
   const [showSplash, setShowSplash] = useState(true);
-  const [showHome, setShowHome] = useState(false);
+  const showHome = !showSplash;
 
   useEffect(() => {
+    setSplashStartTime(Date.now());
+
     let loadedCount = 0;
 
     const handleImageLoad = () => {
@@ -38,19 +42,17 @@ function App() {
   useEffect(() => {
     if (!imagesLoaded) return;
 
+    const elapsed = Date.now() - splashStartTime;
+    const remaining = Math.max(MIN_SPLASH_DURATION - elapsed, 0);
+
     const splashTimeout = setTimeout(() => {
       setShowSplash(false);
-    }, 500);
-
-    const homeTimeout = setTimeout(() => {
-      setShowHome(true);
-    }, 500 + TRANSITION_MS);
+    }, remaining);
 
     return () => {
       clearTimeout(splashTimeout);
-      clearTimeout(homeTimeout);
     };
-  }, [imagesLoaded]);
+  }, [imagesLoaded, splashStartTime]);
 
   return (
     <div className="app">
